@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tls-sentinel-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./tls_sentinel.db
+      - TLS_SENTINEL_ALLOWLIST=localhost,127.0.0.1,*.demo.local,sandbox.local
+    volumes:
+      - ./backend/data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tls-sentinel-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Defensive sandbox TLS service for local certificate testing
+  sandbox-tls:
+    image: alpine:latest
+    container_name: tls-sentinel-sandbox
+    command: >
+      sh -c "apk add --no-cache openssl &&
+             openssl req -x509 -newkey rsa:2048 -nodes -keyout /key.pem -out /cert.pem -days 365 -subj '/CN=sandbox.local' &&
+             echo 'TLS Sandbox Service Ready' &&
+             openssl s_server -key /key.pem -cert /cert.pem -accept 8443 -www"
+    ports:
+      - "8443:8443"
+    restart: unless-stopped

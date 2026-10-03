@@ -1,0 +1,17 @@
+{
+  "hostname": "legacy.demo.local",
+  "port": 443,
+  "tls_version": "TLS 1.2",
+  "negotiated_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+  "certificate": {
+    "subject": "CN=legacy.demo.local, O=Legacy Infrastructure Inc, C=US",
+    "issuer": "CN=Old Root CA 1, O=Old PKI, C=US",
+    "serial_number": "11:22:33:44:55:66:77:88",
+    "valid_from_offset_days": -400,
+    "valid_until_offset_days": -12,
+    "signature_algorithm": "sha256WithRSAEncryption",
+    "public_key_algorithm": "RSA",
+    "public_key_size": 2048,
+    "san_names": ["legacy.demo.local"]
+  }
+}

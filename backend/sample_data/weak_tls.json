@@ -1,0 +1,17 @@
+{
+  "hostname": "internal.demo.local",
+  "port": 443,
+  "tls_version": "TLS 1.0",
+  "negotiated_cipher": "DES-CBC3-SHA",
+  "certificate": {
+    "subject": "CN=internal.demo.local, O=Internal Ops, C=US",
+    "issuer": "CN=Internal Intermediate CA, O=Internal Corp, C=US",
+    "serial_number": "99:AA:BB:CC:DD:EE:FF:00",
+    "valid_from_offset_days": -120,
+    "valid_until_offset_days": 18,
+    "signature_algorithm": "sha1WithRSAEncryption",
+    "public_key_algorithm": "RSA",
+    "public_key_size": 1024,
+    "san_names": ["internal.demo.local"]
+  }
+}
